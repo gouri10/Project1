@@ -1,0 +1,14 @@
+.jumbotron{    
+    background-image:url("../images/everyday1.jpg");
+   background-repeat: no-repeat;
+   background-size: cover;
+   color:maroon;
+}
+
+#currentTime{
+    font-size: 8em;
+}
+
+body{
+background-color:antiquewhite;
+}
