@@ -5,10 +5,14 @@
    color:maroon;
 }
 
+#currentDate{
+    font-size: 4em;
+}
+
 #currentTime{
     font-size: 8em;
 }
 
 body{
-background-color:antiquewhite;
+background-color:#FFE4B5;
 }
