@@ -1,5 +1,10 @@
-$(document).ready(function () {
 
+$(document).ready(function () {
+    var currentDate = moment().format("MMMM Do, YYYY");
+    console.log(currentDate);
+    
+    var currentTime = moment().format("LTS");
+    console.log(currentTime);
 
     var timeDisplayTimer;
 
