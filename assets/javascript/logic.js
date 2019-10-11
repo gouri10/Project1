@@ -1,9 +1,5 @@
 $(document).ready(function () {
 
-
-var timeDisplayTimer;
-
-
    var loadFacts=function(){
    var facts=[];
 
