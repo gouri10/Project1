@@ -5,68 +5,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Your Day Today</title>
+    <title>Day Dashboard</title>
+
+    <!-- BootStrap Links -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
 
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Advent+Pro|Kaushan+Script|Satisfy|Shadows+Into+Light&display=swap"
+        rel="stylesheet">
+
+    <!--custom stylesheet -->
+    <link rel="stylesheet" href="assets/css/style.css">
 
     <!-- Firebase References -->
     <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
 
-    
+    <!-- moment Reference -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+    <!-- JQUERY Reference -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Canvasjs Reference -->
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 
 </head>
 
 <body>
 
     <div class="container">
-    <div class="jumbotron text-center">
-        <h1 class="display-4"><strong>Your Day Today</strong></h1>
-        <p>All about this day</p>
+        
+        <!-- <div class="jumbotron text-center"> -->
+            <h1 class="display-1" id="dashBoardheader"><strong>Today's DashBoard</strong></h1>
+            <!-- <p>All about this day</p> -->
+            <!-- </div> -->
+
+            <div class="row">
+
+                <div class="col-lg-5 col-sm-12">
+                    <h1 id="currentDate"></h1>
+                    <h1 id="currentTime"></h1>
+                    <div class="text-center">
+                        <button class="btn-primary">Add Your Big Days</button>
+                    </div>
+                    <div id="facts">
+                        <h2 id="factsHeading">CoolFacts</h2>
+                        <ul id="coolfacts"></ul>
+                        <button class="btn-primary" style="margin:0 auto">Add Fact</button>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-7 col-sm-12" id="weather">
+                    <h1 id="currentCity"></h1>
+                    <h2 id="currentWeather"></h2>
+                    <h3 id="currentDescription"></h3>
+                    <div class="float-right" style="margin-right:3em; ">
+                        <h5 id="currentWS"></h5>
+                        <h5 id="humidity"></h5>
+                    </div>
+                    <div id="chartContainer"></div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header" id="newsHeader">Today's News</div>
+                        <!-- This main card will hold each of the resulting news articles -->
+                        <div class="card-body" id="article-section"></div>
+                    </div>
+
+
+                </div>
+            </div>
     </div>
-   
-
-    <div class="row">
-        <div class="col-lg-8 col-sm-12">
-            <h1 id="currentDate"></h1>
-            <h1 id="currentTime"></h1>
-            <h2 id="currentDay"></h2>
-        </div>
-        <div class="col-lg-4 col-sm-12">
-            <h3 id="currentWeather"></h3>
-            <h3 id="currentCity"></h3>
-            <h3 id="currentDescription"></h3>
-            <h3 id="currentWS"></h3>   
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-12">
-            <h1>Facts Of Today</h1>
-            <p>October 10th is the day in 1975 that Papua New Guinea joins the United Nations.</p>
-            <p>October 10th is the day in 1631 that a Saxon army takes over Prague.</p>
-            <p>October 10th is the day in 1920 that the Carinthian Plebiscite determines that the larger part of Carinthia should remain part of Austria</p>
-            <button class="btn-primary">Add Fact</button>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-12">
-                <h1>Today's News</h1>
-                <!-- table -->
-        </div>
-
-    </div>
-
-</div>
 
 
+    <!-- custom script -->
     <script src="assets/javascript/logic.js"></script>
 </body>
+
 
 </html>
