@@ -39,7 +39,7 @@ $(document).ready(function () {
                 $("#currentWeather").text("Temperature(F): " + response.main.temp);
                 $("#currentCity").text("City: " + response.name + " ," + response.sys.country);
                 $("#currentDescription").text("Weather: " + response.weather[0].description);
-                $("#currentWS").text("Wind Speed: " + response.wind.speed + "m/s");
+                $("#currentWS").text("Wind Speed: " + response.wind.speed + " mph");
             });
 
     }
