@@ -67,6 +67,84 @@ $(document).ready(function () {
             });
         }
     }
+
+    // This section builds NYT query URL
+    function buildQueryURL() {
+        var currentDate = moment().format("YYYY-MM-D");
+        console.log(currentDate);
+        var apiKey = "&api-key=muGcCiFCyAcrCUHr9wU1tQbNTvHzkFjd";
+        var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?&fq=pub_date:(" + currentDate + ")" +apiKey;
+        console.log("---------------\nURL: " + queryURL + "\n---------------");
+        return queryURL;
+    }
+    
+    // This section imports/builds the articles on page
+    function updatePage(NYTData) {
+        var numArticles = 10;
+    
+        console.log(NYTData);
+        console.log("------------------------------------");
+    
+        for (var i = 0; i < numArticles; i++) {
+        var article = NYTData.response.docs[i];
+        var articleCount = i + 1;
+        var $articleList = $("<ul>");
+    
+        $articleList.addClass("list-group");
+        $("#article-section").append($articleList);
+    
+        var headline = article.headline;
+        var $articleListItem = $("<li class='list-group-item articleHeadline'>");
+    
+        if (headline && headline.main) {
+            console.log(headline.main);
+            $articleListItem.append(
+            "<span class='label label-primary'>" +
+                articleCount +
+                "</span>" +
+                "<strong> " +
+                headline.main +
+                "</strong>"
+            );
+        }
+    
+        var byline = article.byline;
+    
+        if (byline && byline.original) {
+            console.log(byline.original);
+            $articleListItem.append("<h5>" + byline.original + "</h5>");
+        }
+    
+        var section = article.section_name;
+        console.log(article.section_name);
+        if (section) {
+            $articleListItem.append("<h5>Section: " + section + "</h5>");
+        }
+    
+    
+        $articleListItem.append("<a href='" + article.web_url + "'>" + article.web_url + "</a>");
+        console.log(article.web_url);
+        $articleList.append($articleListItem);
+        }
+    }
+    
+    // clears out article section
+    function clear() {
+        $("#article-section").empty();
+    }
+    
+    // This section takes all the above functions and calls them together with the ajax
+    function loadArticles(){
+        clear();
+        var queryURL = buildQueryURL();
+    
+        $.ajax({
+        url: queryURL,
+        method: "GET"
+        }).then(updatePage);
+    }
+        
+    loadArticles();
     loadFacts();
     loadWeather();
     loadDateAndTime();
