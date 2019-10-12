@@ -38,47 +38,53 @@
 <body>
 
     <div class="container">
-
+        
         <!-- <div class="jumbotron text-center"> -->
-        <h1 class="display-1" id="dashBoardheader"><strong>Today's DashBoard</strong></h1>
-        <!-- <p>All about this day</p> -->
-        <!-- </div> -->
+            <h1 class="display-1" id="dashBoardheader"><strong>Today's DashBoard</strong></h1>
+            <!-- <p>All about this day</p> -->
+            <!-- </div> -->
 
-        <div class="row">
-            
-            <div class="col-lg-5 col-sm-12">
-                <h1 id="currentDate"></h1>
-                <h1 id="currentTime"></h1>
-                <div class="text-center">
-                    <button class="btn-primary">Add Your Big Days</button>
+            <div class="row">
+
+                <div class="col-lg-5 col-sm-12">
+                    <h1 id="currentDate"></h1>
+                    <h1 id="currentTime"></h1>
+                    <div class="text-center">
+                        <button class="btn-primary">Add Your Big Days</button>
+                    </div>
+                    <div id="facts">
+                        <h2 id="factsHeading">CoolFacts</h2>
+                        <ul id="coolfacts"></ul>
+                        <button class="btn-primary" style="margin:0 auto">Add Fact</button>
+                    </div>
                 </div>
-                <div id="facts">
-                    <h2 id="factsHeading">CoolFacts</h2>
-                    <ul id="coolfacts"></ul>
-                    <button class="btn-primary" style="margin:0 auto">Add Fact</button>
+
+
+                <div class="col-lg-7 col-sm-12" id="weather">
+                    <h1 id="currentCity"></h1>
+                    <h2 id="currentWeather"></h2>
+                    <h3 id="currentDescription"></h3>
+                    <div class="float-right" style="margin-right:3em; ">
+                        <h5 id="currentWS"></h5>
+                        <h5 id="humidity"></h5>
+                    </div>
+                    <div id="chartContainer"></div>
                 </div>
+
+
             </div>
 
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header" id="newsHeader">Today's News</div>
+                        <!-- This main card will hold each of the resulting news articles -->
+                        <div class="card-body" id="article-section"></div>
+                    </div>
 
-            <div class="col-lg-7 col-sm-12" id="weather">
-                <h1 id="currentCity"></h1>
-                <h2 id="currentWeather"></h2>
-                <h3 id="currentDescription"></h3>
-                <div class="float-right" style="margin-right:3em; ">
-                    <h5 id="currentWS"></h5>
-                    <h5 id="humidity"></h5>
+
                 </div>
-                <div id="chartContainer"></div>
             </div>
-
-        </div>
-
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 id="newsHeader">Today's News</h1>
-                <!-- table -->
-            </div>
-        </div>
     </div>
 
 
