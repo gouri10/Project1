@@ -1,18 +1,89 @@
-.jumbotron{    
-    background-image:url("../images/everyday1.jpg");
-   background-repeat: no-repeat;
-   background-size: cover;
-   color:maroon;
+body{
+    background-image:url("../images/background.png");    
+    color:antiquewhite;
+    }
+
+#dashBoardheader{
+    margin-top:0.5em;
+    color:aquamarine;
+    font-size:5em;
+    z-index:10;
+    text-align: center;
 }
 
 #currentDate{
-    font-size: 4em;
+    font-size: 2em;
+    color:#FFFF00;
+    font-weight: bold;
 }
 
 #currentTime{
-    font-size: 8em;
+    text-align: center;
+    border-radius: 25px;
+    font-size: 4em;
+    background-color: grey;
+    color:black;
+    font-weight: bold;
+    padding:0px;
 }
 
-body{
-background-color:#FFE4B5;
+#facts{
+    margin-top:1em;padding:1em;
+    border-radius:25px;
+    background-image:url('../images/facts.gif');
+    background-size:cover;
+    color:black;
+    font-weight:bold;
 }
+
+#factsHeading{
+    text-align:center;
+    font-size:2em;
+    font-weight:bold;
+    font-family: 'Kaushan Script', cursive;
+    text-decoration: underline;
+}
+
+#currentCity{
+    background-color:blueviolet;
+    text-align: center;
+    border-radius: 25px;
+    font-weight: bold;
+    color:pink;
+}
+
+#currentWeather{
+    display:inline; 
+    margin-left:2em;
+    color:red;
+    font-weight:bold;
+} 
+
+#currentDescription{
+    display:inline;
+    color:red;
+}
+                
+#chartContainer{
+    width:100%;
+    max-height:100%;
+    margin-top:0.5em;    
+}
+
+li{
+font-family: 'Advent Pro', sans-serif;
+}
+
+#newsHeader{
+    background-color:palevioletred;
+    font-weight:bold;
+    text-align: center;
+    color:blue;
+    margin-top:1.2em;
+    border-radius:25px;
+    padding:0.1em;
+}
+
+
+
+
