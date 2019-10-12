@@ -102,9 +102,7 @@ $(document).ready(function () {
             "<span class='label label-primary'>" +
                 articleCount +
                 "</span>" +
-                "<strong> " +
-                headline.main +
-                "</strong>"
+                headline.main 
             );
         }
     
