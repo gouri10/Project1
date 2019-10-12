@@ -99,9 +99,6 @@ $(document).ready(function () {
         if (headline && headline.main) {
             console.log(headline.main);
             $articleListItem.append(
-            "<span class='label label-primary'>" +
-                articleCount +
-                "</span>" +
                 headline.main 
             );
         }
