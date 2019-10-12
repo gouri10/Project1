@@ -173,13 +173,20 @@ var dateToday=moment().format("MM/DD");
         var headline = article.headline;
         var $articleListItem = $("<li class='list-group-item articleHeadline'>");
     
+        // if (headline && headline.main) {
+        //     console.log(headline.main);
+        //     $articleListItem.append(
+        //     "<span class='label label-primary'>" +
+        //         articleCount +
+        //         "</span>" +
+        //         headline.main 
+        //     );
+        // }
+
         if (headline && headline.main) {
             console.log(headline.main);
             $articleListItem.append(
-            "<span class='label label-primary'>" +
-                articleCount +
-                "</span>" +
-                headline.main 
+                headline.main
             );
         }
     
