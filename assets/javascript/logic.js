@@ -111,9 +111,9 @@ $(document).ready(function () {
         })
             .then(function (response) {
                 $("#currentWeather").text(response.main.temp + "F");
-                $("#currentCity").text(response.name + " ," + response.sys.country);
+                $("#currentCity").text(response.name + ", " + response.sys.country);
                 $("#currentDescription").text(response.weather[0].description);
-                $("#currentWS").text("Wind Speed: " + response.wind.speed + "m/s");
+                $("#currentWS").text("Wind Speed: " + response.wind.speed + " mph");
                 $("#humidity").text("Humidity:" +"48%");
             });
 
