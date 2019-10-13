@@ -110,19 +110,11 @@ $(document).ready(function () {
             method: "GET"
         })
             .then(function (response) {
-<<<<<<< HEAD
-=======
-
->>>>>>> bf2e4183f6cf666f8edb8a11bddd741b6af2665e
                 $("#currentWeather").text(response.main.temp + "F");
                 $("#currentCity").text(response.name + " ," + response.sys.country);
                 $("#currentDescription").text(response.weather[0].description);
                 $("#currentWS").text("Wind Speed: " + response.wind.speed + "m/s");
                 $("#humidity").text("Humidity:" +"48%");
-<<<<<<< HEAD
-=======
-
->>>>>>> bf2e4183f6cf666f8edb8a11bddd741b6af2665e
             });
 
     }
