@@ -311,7 +311,7 @@ var dateToday=moment().format("MM/DD");
 
 
         function checkInput(){
-            if (month > "12" || day >"31"){
+            if (month > "12" || day >"31" || event.length < "1" || event.length >"14"){
                 // Inappropriate data response
                 month = "0";
                 day = "0";
