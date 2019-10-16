@@ -20,8 +20,8 @@
     <link rel="stylesheet" href="assets/css/style.css">
 
     <!-- Firebase References -->
-    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-database.js"></script>
 
     <!-- moment Reference -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
@@ -49,9 +49,19 @@
                 <div class="col-lg-5 col-sm-12">
                     <h1 id="currentDate"></h1>
                     <h1 id="currentTime"></h1>
-                    <div class="text-center">
-                        <button class="btn-primary">Add Your Big Days</button>
+                    
+                    <!-- Big Day's Countdown holder -->
+                    <div id="big-days">
+                        <h2 id="bd-heading">Your Bid Days</h2>
+                        <ul id="dates"></ul>
                     </div>
+                    <!-- Collect User Input -->
+                    <form id="userInput">
+                    </form>
+                    <!-- Input Filler and Clearer -->
+                    <div class="text-center">
+                    </div>
+
                     <div id="facts">
                         <h2 id="factsHeading">CoolFacts</h2>
                         <ul id="coolfacts"></ul>
@@ -76,7 +86,11 @@
 
             <div class="row">
                 <div class="col-lg-12">
+<<<<<<< HEAD
                     <div id="articlesDiv" class="card">
+=======
+                    <div class="card" id="newsBody">
+>>>>>>> master
                         <div class="card-header" id="newsHeader">Today's News</div>
                         <!-- This main card will hold each of the resulting news articles -->
                         <div class="card-body" id="article-section"></div>

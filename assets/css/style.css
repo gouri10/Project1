@@ -83,10 +83,31 @@ font-family: 'Advent Pro', sans-serif;
     margin-top:1.1em;
     border-radius:25px;
     padding:0.1em;
+    font-size: 1.5em;
 }
 
-#articlesDiv {
-    margin-top: 30px;
+#newsBody {
+    margin-top: 4em;
+    margin-bottom: 2em;
+    border-radius: 25px;
+}
+
+h5 {
+    color: black;
+}
+
+.articleHeadline {
+    color: black;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+#currentWS {
+    color: white;
+}
+
+#humidity {
+    color: white;
 }
 
 .list-group {

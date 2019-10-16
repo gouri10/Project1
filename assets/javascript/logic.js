@@ -225,9 +225,161 @@ var dateToday=moment().format("MM/DD");
         method: "GET"
         }).then(updatePage);
     }
+
+    // BIG DAY FEATURE
+
+        // Firebase Call
+
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyB0L_zmqWF5nPq7AjgyOuh6LvMMBPpltz8",
+                authDomain: "daydashboard.firebaseapp.com",
+                databaseURL: "https://daydashboard.firebaseio.com",
+                projectId: "daydashboard",
+                storageBucket: "daydashboard.appspot.com",
+                messagingSenderId: "601335236816",
+                appId: "1:601335236816:web:d14de5c8167c18efb676d5"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+
+
+        // Variables
+        var month;
+        var day;
+        var event;
+        var eventCounter = "0";
+        var placeHolder = $("<li>");
+
+        // Firesbase Pull && Page Update
+        firebase.database().ref().on("value", function(snapshot) {
+            contents = snapshot.val();
+            console.log(contents);
+            if (contents == null){
+                $("#dates").append("You have no Big Days! Click below to add them!");
+                console.log("You have no events!");
+            } else {
+            eventCounter = snapshot.val().eventCounter.counter;
+            console.log("counter: " +eventCounter);
+            var results= snapshot.val().events;
+            console.log(results);
+            $("#dates").empty();
+                for (i=1; i<eventCounter+1; i++){
+                    event= results[i].eventLog;
+                    month = results[i].dateLog[0];
+                    day = results[i].dateLog[1];
+                    console.log(month);
+                    updateCountdown(month, day, event);
+            }
+            }
+
+        });
+        
+       
+               
+        function BigDayLoad(){
+            $(".text-center").empty();
+            $(".text-center").append("<button class='bd-btn'>Add Your Big Days</button>");
+            
+            $(".bd-btn").on("click", function(){
+                userInput();
+            })
+        };
+       
+        // Reveals user input form
+        function userInput(){
+
+            $("#userInput").empty();
+            displayForm();
+            
+            // Submit Feature
+            $("#submit").on("click", function(){
+               // Fetches input 
+                month= $("#month").val()-1;
+                day= $("#day").val();
+                event= $("#event").val();
+                checkInput();
+            })
+        };
+
+        function displayForm(){
+            $("#userInput").append("Occasion: <input type='text' id='event'></input><br>");
+            $("#userInput").append("MM<input type='text' id='month'></input>");
+            $("#userInput").append("DD <input type='text' id='day'></input>");
+            $("#userInput").append("<br><button id='submit'>Submit</button>");
+        };
+
+
+        function checkInput(){
+            if (month > "12" || day >"31" || event.length < "1" || event.length >"14"){
+                // Inappropriate data response
+                month = "0";
+                day = "0";
+                event = "0";
+                $("#userInput").empty();
+                displayForm();
+                $("#bd-heading").append(" -- ERROR!"); 
+                
+                // Stores/populates data and hides/resets form
+            } else if (month<"12" && day<"32" && month> "0" && day> "0") {
+                var date = [month, day];
+                eventCounter++;
+
+                // Store in firebase
+                fireUpdate(eventCounter, event, date, eventCounter);
+
+                errorReset();
+                console.log("Complete");
+            }
+        };
+
+        function updateCountdown(MM, DD, EV){
+            today=new Date();
+            const saveDate=new Date(today.getFullYear(), MM, DD);
+            const one_day=1000*60*60*24;
+            countdown = Math.ceil((saveDate.getTime()-today.getTime())/(one_day))
+
+            if (countdown > 0){
+                placeHolder.append(countdown +" days left until your " +EV +"!</li> <br>");
+                console.log(countdown +" days left until " +EV +"!");
+                $("#dates").append(placeHolder);
+                placeHolder=$("<li>");
+            }else if(countdown == 0) {
+                placeHolder.append("It's your " +EV +"!</li> <br>");
+                console.log("It's your " +EV +"!");
+                $("#dates").append(placeHolder);
+                placeHolder=$("<li>");
+            }else {
+                saveDate.setFullYear(saveDate.getFullYear()+1); 
+                countdown = Math.ceil((saveDate.getTime()-today.getTime())/(one_day));
+                placeHolder.append(countdown +" days left until your " +EV +"!</li> <br>");
+                console.log(countdown +" days left until " +EV +"!");
+                $("#dates").append(placeHolder);
+                placeHolder=$("<li>");
+            }
+        }
+
+        function errorReset(){
+            // Hide user input--Reset error
+            $("#userInput").empty();
+            $("#bd-heading").empty(); 
+            $("#bd-heading").append("Your Bid Days"); 
+        }
+
+        function fireUpdate(eventTitle, data1, data2, data3){
+            var userInputRef = firebase.database().ref("events/" +eventTitle +"/");
+            userInputRef.set ({
+                eventLog: data1,
+                dateLog: data2
+            })
+            var userInputRef = firebase.database().ref("eventCounter/");
+            userInputRef.set ({
+                counter: data3
+            })
+        };
         
     loadArticles();
-
+    BigDayLoad();
     loadFacts();
     loadWeather();
     loadDateAndTime();
