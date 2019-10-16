@@ -113,7 +113,7 @@ $(document).ready(function () {
                 $("#currentWeather").text(response.main.temp + "F");
                 $("#currentCity").text(response.name + ", " + response.sys.country);
                 $("#currentDescription").text(response.weather[0].description);
-                $("#currentWS").text("Wind Speed: " + response.wind.speed + "m/s");
+                $("#currentWS").text("Wind Speed: " + response.wind.speed + " mph");
                 $("#humidity").text("Humidity:" +"48%");
             });
 
@@ -300,6 +300,7 @@ var dateToday=moment().format("MM/DD");
                 day= $("#day").val();
                 event= $("#event").val();
                 checkInput();
+                BigDayLoad();
             })
         };
 
@@ -386,5 +387,3 @@ var dateToday=moment().format("MM/DD");
     loadDateAndTime();
 
 });
-
-
