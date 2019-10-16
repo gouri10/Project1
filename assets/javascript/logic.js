@@ -232,14 +232,14 @@ var dateToday=moment().format("MM/DD");
 
             // Your web app's Firebase configuration
             var firebaseConfig = {
-                apiKey: "AIzaSyAGr6y2xxOh95CrxL5-OUN-Q12nMrLVnDk",
-                authDomain: "checker-93432.firebaseapp.com",
-                databaseURL: "https://checker-93432.firebaseio.com",
-                projectId: "checker-93432",
-                storageBucket: "checker-93432.appspot.com",
-                messagingSenderId: "797201496031",
-                appId: "1:797201496031:web:83420bab34f4155719766a"
-              };
+                apiKey: "AIzaSyB0L_zmqWF5nPq7AjgyOuh6LvMMBPpltz8",
+                authDomain: "daydashboard.firebaseapp.com",
+                databaseURL: "https://daydashboard.firebaseio.com",
+                projectId: "daydashboard",
+                storageBucket: "daydashboard.appspot.com",
+                messagingSenderId: "601335236816",
+                appId: "1:601335236816:web:d14de5c8167c18efb676d5"
+            };
             // Initialize Firebase
             firebase.initializeApp(firebaseConfig);
 
