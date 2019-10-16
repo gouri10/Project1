@@ -279,10 +279,11 @@ var dateToday=moment().format("MM/DD");
                
         function BigDayLoad(){
             $(".text-center").empty();
-            $(".text-center").append("<button class='bd-btn'>Add Your Big Days</button>");
+            $(".text-center").append("<button class='btn-primary'>Add Your Big Days</button>");
             
             $(".bd-btn").on("click", function(){
                 userInput();
+                $(".text-center").empty();
             })
         };
        
@@ -303,9 +304,9 @@ var dateToday=moment().format("MM/DD");
         };
 
         function displayForm(){
-            $("#userInput").append("Occasion: <input type='text' id='event'></input><br>");
-            $("#userInput").append("MM<input type='text' id='month'></input>");
-            $("#userInput").append("DD <input type='text' id='day'></input>");
+            $("#userInput").append("<label class='big-day-input-label' for='event'>Occasion:</label><input type='text' id='event' name='event'></input><br>");
+            $("#userInput").append("<label class='big-day-input-label' for='month'>Month:</label><input type='text' id='month'></input><br>");
+            $("#userInput").append("<label class='big-day-input-label' for='day'>Day:</label><input type='text' id='day'></input><br>");
             $("#userInput").append("<br><button id='submit'>Submit</button>");
         };
 
