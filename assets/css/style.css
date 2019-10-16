@@ -15,6 +15,7 @@ body{
     font-size: 2em;
     color:#FFFF00;
     font-weight: bold;
+    text-align: center;
 }
 
 #currentTime{
@@ -51,6 +52,7 @@ body{
     font-weight: bold;
     color:pink;
     padding: .1em;
+    margin-top: 80px;
 }
 
 #currentWeather{

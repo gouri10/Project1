@@ -281,7 +281,7 @@ var dateToday=moment().format("MM/DD");
             $(".text-center").empty();
             $(".text-center").append("<button class='btn-primary'>Add Your Big Days</button>");
             
-            $(".bd-btn").on("click", function(){
+            $(".btn-primary").on("click", function(){
                 userInput();
                 $(".text-center").empty();
             })
