@@ -50,6 +50,7 @@ body{
     border-radius: 25px;
     font-weight: bold;
     color:pink;
+    padding: .1em;
 }
 
 #currentWeather{
@@ -82,7 +83,7 @@ font-family: 'Advent Pro', sans-serif;
     margin-top:1.2em;
     border-radius:25px;
     padding:0.1em;
-    font-size: 1.5em;
+    font-size: 36px;
 }
 
 #newsBody {
@@ -98,7 +99,7 @@ h5 {
 .articleHeadline {
     color: black;
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 20px;
 }
 
 #currentWS {
@@ -109,5 +110,28 @@ h5 {
     color: white;
 }
 
+#event, #month, #day {
+    color: black;
+}
 
+
+.btn-primary {
+    font-weight: bold;
+}
+#submit {
+    border-radius: 25px;
+    border: .5px;
+    color: black;
+}
+
+.big-day-input-label {
+    width: 18%;
+}
+
+
+@media (max-width: 993px) {
+    #newsBody {
+        margin-top: 400px;
+    }
+}
 
