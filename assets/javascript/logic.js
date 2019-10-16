@@ -232,14 +232,14 @@ var dateToday=moment().format("MM/DD");
 
             // Your web app's Firebase configuration
             var firebaseConfig = {
-                apiKey: "AIzaSyB0L_zmqWF5nPq7AjgyOuh6LvMMBPpltz8",
-                authDomain: "daydashboard.firebaseapp.com",
-                databaseURL: "https://daydashboard.firebaseio.com",
-                projectId: "daydashboard",
-                storageBucket: "daydashboard.appspot.com",
-                messagingSenderId: "601335236816",
-                appId: "1:601335236816:web:d14de5c8167c18efb676d5"
-            };
+                apiKey: "AIzaSyAGr6y2xxOh95CrxL5-OUN-Q12nMrLVnDk",
+                authDomain: "checker-93432.firebaseapp.com",
+                databaseURL: "https://checker-93432.firebaseio.com",
+                projectId: "checker-93432",
+                storageBucket: "checker-93432.appspot.com",
+                messagingSenderId: "797201496031",
+                appId: "1:797201496031:web:83420bab34f4155719766a"
+              };
             // Initialize Firebase
             firebase.initializeApp(firebaseConfig);
 
@@ -306,14 +306,31 @@ var dateToday=moment().format("MM/DD");
 
         function displayForm(){
             $("#userInput").append("<label class='big-day-input-label' for='event'>Occasion:</label><input type='text' id='event' name='event'></input><br>");
-            $("#userInput").append("<label class='big-day-input-label' for='month'>Month:</label><input type='text' id='month'></input><br>");
-            $("#userInput").append("<label class='big-day-input-label' for='day'>Day:</label><input type='text' id='day'></input><br>");
+            
+
+            var monthHold = "<form>Month: <select id='month'>";
+                for (i=1; i<13; i++){
+                    console.log(i);
+                    monthHold = monthHold +"<option value=" +i +">" +i +"</option>";
+                }
+                monthHold= monthHold +"</select><br><br></form><br>"
+
+
+            var dayHold = "<form>Date: <select id='day'>";
+                for (i=1; i<32; i++){
+                    console.log(i);
+                    dayHold = dayHold +"<option value=" +i +">" +i +"</option>";
+                }
+                dayHold = dayHold +"</select><br><br></form><br>"
+            
+            $("#userInput").append(monthHold);
+            $("#userInput").append(dayHold);
             $("#userInput").append("<br><button id='submit'>Submit</button>");
         };
 
 
         function checkInput(){
-            if (month > "12" || day >"31" || event.length < "1" || event.length >"14"){
+            if (event.length < "1" || event.length >"14"){
                 // Inappropriate data response
                 month = "0";
                 day = "0";
@@ -323,7 +340,7 @@ var dateToday=moment().format("MM/DD");
                 $("#bd-heading").append(" -- ERROR!"); 
                 
                 // Stores/populates data and hides/resets form
-            } else if (month<"12" && day<"32" && month> "0" && day> "0") {
+            } else {
                 var date = [month, day];
                 eventCounter++;
 
