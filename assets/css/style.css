@@ -77,6 +77,15 @@ li{
 font-family: 'Advent Pro', sans-serif;
 }
 
+#big-days{
+   margin-top:1em;padding:1em;
+   border-radius:25px;
+   background-image:url('../images/specialOccasions.gif');
+   background-size:cover;
+   color:white;
+   font-weight:bold;
+}
+
 #newsHeader{
     font-size: 30px;
     background-color:palevioletred;

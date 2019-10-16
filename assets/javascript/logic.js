@@ -300,6 +300,7 @@ var dateToday=moment().format("MM/DD");
                 day= $("#day").val();
                 event= $("#event").val();
                 checkInput();
+                BigDayLoad();
             })
         };
 
@@ -386,5 +387,3 @@ var dateToday=moment().format("MM/DD");
     loadDateAndTime();
 
 });
-
-
