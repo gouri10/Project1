@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day Dashboard</title>
+
+  <!-- BootStrap Links -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Advent+Pro|Kaushan+Script|Satisfy|Shadows+Into+Light&display=swap"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Big+Shoulders+Display|Fjalla+One|Indie+Flower|Seymour+One|Turret+Road&display=swap"
+    rel="stylesheet">
+
+  <!--custom stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Font Awesome -->
+  <script src="https://use.fontawesome.com/releases/v5.11.2/js/all.js" data-auto-replace-svg="nest"></script>
+
+  <!-- Firebase References -->
+  <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-database.js"></script>
+
+  <!-- moment Reference -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+  <!-- JQUERY Reference -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- Canvasjs Reference -->
+  <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!--heading section start-->
+    <div>
+      <h1 id="dashBoardheader" class="dashBoardHeading" style="display:inline-block"><strong></strong></h1>
+      <i class="fas fa-smile dashBoardHeading"></i>
+      <h5 class="float-right" id="signoutBtn">SignOut</h5>
+      </h1>
+      <div class="animateparagraph">
+        <p>Today's Dashboard!</p>
+      </div>
+      <!--heading section close-->
+
+      <div class="row">
+
+        <div class="col-lg-6 col-sm-12 weather">
+          <h1 id="currentDate"></h1>
+          <h1 id="currentTime"></h1>
+
+          <h1 id="currentCity"></h1>
+          <h2 id="currentWeather"></h2>
+          <h3 id="currentDescription"></h3>
+          <div class="float-right" style="margin-right:3em; ">
+            <h5 id="currentWS"></h5>
+            <h5 id="humidity"></h5>
+          </div>
+          <div id="chartContainer"></div>
+
+
+
+        </div> <!-- end of col 1 -->
+
+        <div class="col-lg-6 col-sm-12" id="weather">
+
+          <div class="todo">
+            <div class="backImage">
+              <div class="mainText">
+                <form>
+                  <div class="form-group">
+                    <div class="form-group">
+                      <label for="task">To Do : </label>
+                      <input style="width:50%;display:inline-block" type="text" class="form-control" id="task"
+                        placeholder="Enter task">
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="taskType" id="inlineRadio1" value="daily">
+                      <label class="form-check-label" for="inlineRadio1">Daily</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="taskType" id="inlineRadio2" value="onetime">
+                      <label class="form-check-label" for="inlineRadio2">OneTime</label>
+                    </div>
+                    <button id="addTask" type="submit" class="btn btn-primary">Add-ToDo</button>
+                  </div>
+                </form>
+                <div>
+                  <h3 class="tasks">Today's Tasks</h3>
+                  <div id="onetime-tasks"></div>
+                </div>
+                <div>
+                  <h3 class="tasks">Daily Tasks</h3>
+                  <div id="daily-tasks">></div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+          <div id="facts">
+            <h2 id="factsHeading">CoolFacts</h2>
+            <ul id="coolfacts"></ul>
+            <h2 id="factsHeading">UserFacts</h2>
+            <ul id="userfacts"></ul>
+            <form>
+              <div class="form-row">
+                <div class="form-group col-md-8">
+                  <label for="inputAddFact" style="color:black;">Fact : </label>
+                  <input type="text" class="form-control" id="inputAddFact" placeholder="Add Fact">
+                </div>
+                <button class="col-md-4 btn-primary text-center" id="addFactBtn">Add Fact</button>
+              </div>
+            </form>
+          </div>
+
+
+
+        </div> <!-- end of col 2  -->
+
+      </div> <!-- end of row 1 -->
+
+
+      <div class="row">
+
+        <div class="col-lg-12">
+          <div id="big-days">
+            <form>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="inputAddBigDay" style="color:black;">Occasion</label>
+                  <input type="text" class="form-control" id="inputAddBigDay" placeholder="Add Occasion">
+                </div>
+                <!-- </div>
+                <div class="form-row"> -->
+                <div class="form-group col-md-1">
+                  <label for="inputMonth">Month</label>
+                  <select id="inputMonth" class="form-control">
+                    <option selected>...</option>
+                    <option>1</option>
+                    <option>2</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-1">
+                  <label for="inputDay">Day</label>
+                  <select id="inputDay" class="form-control">
+                    <option selected>...</option>
+                    <option>1</option>
+                    <option>2</option>
+                  </select>
+                </div>
+                <button class="col-md-2 btn-primary text-center" id="addBigDayBtn">AddBigDay</button>
+              </div>
+            </form>
+            <ul id="dates"></ul>
+          </div>
+        </div> <!-- end of col 1 -->
+
+      </div> <!-- end of row  2-->
+
+
+
+      <div class="row">
+
+        <div class="col-lg-12">
+          <div class="card" id="newsBody">
+            <div class="card-header" id="newsHeader">Today's News</div>
+            <!-- This main card will hold each of the resulting news articles -->
+            <div class="card-body" id="article-section"></div>
+          </div>
+        </div>
+        <!--end of col -->
+
+      </div>
+      <!--end of row 3-->
+
+
+
+
+    </div> <!-- end of container-->
+
+
+    <!-- custom script -->
+    <script src="assets/javascript/logic.js"></script>
+</body>
+
+
+</html>
