@@ -81,11 +81,52 @@ $(document).ready(function () {
     var currentDate;
     var currentTime;
 
+
+
+    var firebaseConfig = {
+        apiKey: "AIzaSyB0L_zmqWF5nPq7AjgyOuh6LvMMBPpltz8",
+        authDomain: "daydashboard.firebaseapp.com",
+        databaseURL: "https://daydashboard.firebaseio.com",
+        projectId: "daydashboard",
+        storageBucket: "daydashboard.appspot.com",
+        messagingSenderId: "601335236816",
+        appId: "1:601335236816:web:d14de5c8167c18efb676d5"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    var database = firebase.database();
+
+    if (sessionStorage.length > 0) {
+
+        var userName = sessionStorage.getItem("name");
+        var email = sessionStorage.getItem("email");
+        var userAddedEmail = sessionStorage.getItem("userAddedEmail");
+        var tasksRef = firebase.database().ref("users/" + userAddedEmail + "/tasks/");
+        var factsRef = firebase.database().ref("users/" + userAddedEmail + "/facts/");
+        var bigDaysRef = firebase.database().ref("users/" + userAddedEmail + "/bigDays/");
+
+    }
+
+    for (var i = 1; i < 13; i++) {
+        $("#inputMonth").append("<option>" + i + "</option>");
+    }
+
+    for (var i = 1; i < 32; i++) {
+        $("#inputDay").append("<option>" + i + "</option>");
+    }
+
+
+
     //load Date and time
     var loadDateAndTime = function () {
         if (sessionStorage.length > 0) {
 
-            $("#dashBoardheader").text("Hello " + sessionStorage.getItem("name"));
+            userName = sessionStorage.getItem("name");
+            email = sessionStorage.getItem("email");
+            userAddedEmail = sessionStorage.getItem("userAddedEmail");
+            taskRef = firebase.database().ref("users/" + userAddedEmail + "/tasks/");
+
+            $("#dashBoardheader").text("Hello " + userName);
         }
 
 
@@ -128,10 +169,9 @@ $(document).ready(function () {
 
 
     var loadFacts = function () {
-        
+
         var dateToday = moment().format("MM/DD");
         var queryURL = "https://numbersapi.com/" + dateToday + "/date";
-
         for (var i = 0; i <= 3; i++) {
             // Creates AJAX call for the specific movie button being clicked
             $.ajax({
@@ -149,13 +189,35 @@ $(document).ready(function () {
         }
     }
 
-    var tasksList = [{ task: "eating", isDaily: true },
-    { task: "sleeping", isDaily: false },
-    { task: "playing", isDaily: false },
-    { task: "Check Mails", isDaily: true }
-    ];
+    function fireBaseUserDataUpdate(type, obj) {
+        var userDataRef = firebase.database().ref("users/" + userAddedEmail + "/" + type + "/");
+        if (type === "tasks") {
+            userDataRef.push({
+                task: obj.task,
+                isDaily: obj.isDaily,
+                checked: false
+            })
+        }
+        if (type === "bigDays") {
+            userDataRef.push({
+                occasion: obj.occasion,
+                month: obj.month,
+                date: obj.date
+            })
+        }
+        if (type === "facts") {
+            userDataRef.push({
+                fact: obj.fact,
+                user: obj.user
+            })
+        }
+
+    };
+
+
     $("#addTask").on("click", function (event) {
         event.preventDefault();
+        var task=$("#task").val();
         var checked = $("input[name='taskType']:checked").val();
         var isdailyInput = false;
         if (checked === "daily") {
@@ -164,111 +226,104 @@ $(document).ready(function () {
         else {
             isdailyInput = false;
         }
-        tasksList.push({ task: $("#task").val(), isDaily: isdailyInput });
+        if(task!=="")
+        {
+        var taskObj = { task: task, isDaily: isdailyInput };
+        fireBaseUserDataUpdate("tasks", taskObj)
         $("#task").val("");
-        getTasks();
-    })
-    function getTasks() {
-        $("#onetime-tasks").empty();
-        $("#daily-tasks").empty();
-        //displays the tasks in the array
-        for (var i = 0; i < tasksList.length; i++) {
-            if (tasksList[i].isDaily === false) {
-                var checkBoxInput = $('<label/>').addClass("todoLabel").html(tasksList[i].task)
-                    .prepend($('<input/>').attr({ type: 'checkbox', class: 'checkbox' }));
-                $("#onetime-tasks").append(checkBoxInput);
-            }
-            else {
-                var checkBoxInput = $('<label/>').addClass("todoLabel").html(tasksList[i].task)
-                    .prepend($('<input/>').attr({ type: 'checkbox', class: 'checkbox' }));
-                $("#daily-tasks").append(checkBoxInput);
-            }
         }
-    }
+    })
 
 
+    tasksRef.on("child_added", function (snapshot) {
+        var sv = snapshot.val();
+        var task = sv.task;
+        var isDaily = sv.isDaily;
+        var checked = sv.checked;
+
+        if (isDaily === false) {
+            var checkBoxInput = $('<label/>').addClass("todoLabel").html(task)
+                .prepend($('<input/>').attr({ type: 'checkbox', class: 'checkbox' }));
+            $("#onetime-tasks").append(checkBoxInput);
+        }
+        else {
+            var checkBoxInput = $('<label/>').addClass("todoLabel").html(task)
+                .prepend($('<input/>').attr({ type: 'checkbox', class: 'checkbox' }));
+            $("#daily-tasks").append(checkBoxInput);
+        }
+
+    });
 
 
-
-    var userFactsList = [{ fact:"dvdsfdsvhmcvdsvhc",user:"Gouri Panda"}];
     $("#addFactBtn").on("click", function (event) {
         event.preventDefault();
         var userFact = $("#inputAddFact").val();
-        var user="Gouri Panda";
+        var user = userName;
 
-        if (event !== "") {
-            userFactsList.push({ fact:userFact,user:user });
+        if (userFact !== "") {
+            var factObj = { fact: userFact, user: user };
+            fireBaseUserDataUpdate("facts", factObj);
             $("#inputAddFact").val("");
-            getFacts();
-
         }
 
     })
-    function getFacts() {
-        $("userfacts").empty();
 
-        //displays the tasks in the array
-        for (var i = 0; i < userFactsList.length; i++) {
-           
-            var newFact = $("<li>");            
-            newFact.text(userFactsList[i].fact + " ("+userFactsList[i].user+")");
-            $("#userfacts").append(newFact);
-           
-        }
-    }
+    factsRef.on("child_added", function (snapshot) {
+        var sv = snapshot.val();
+        console.log(sv);
+        var fact = sv.fact;
+        var user = sv.user;
 
+        var newFact = $("<li>");
+        newFact.text(fact + " (" + user + ")");
+        $("#userfacts").append(newFact);
 
+    });
 
 
 
-
-
-
-
-
-
-
-    var occasionList = [{ occasion: "eating", month: 12, date: 10 }];
     $("#addBigDayBtn").on("click", function (event) {
         event.preventDefault();
-        var event = $("#inputAddBigDay").val();
+        var occasion = $("#inputAddBigDay").val();
         var month = $("#inputMonth").val();
         var day = $("#inputDay").val();
 
-        if (event !== "") {
-            occasionList.push({ occasion: event, month: month, date: day });
+        if (occasion !== "") {
+            var occasionObj = { occasion: occasion, month: month, date: day };
+            fireBaseUserDataUpdate("bigDays", occasionObj);
             $("#inputAddBigDay").val("");
-            getOccasions();
-
         }
 
     })
-    function getOccasions() {
-        $("dates").empty();
 
-        //displays the tasks in the array
-        for (var i = 0; i < occasionList.length; i++) {
+    bigDaysRef.on("child_added", function (snapshot) {
+        var sv = snapshot.val();
+        var occasion = sv.occasion;
+        var month = sv.month;
+        var date = sv.date;
 
-            today = new Date();
-            const saveDate = new Date(today.getFullYear(), occasionList[i].month, occasionList[i].date);
-            const one_day = 1000 * 60 * 60 * 24;
+        today = new Date();
+        const saveDate = new Date(today.getFullYear(), month, date);
+        const one_day = 1000 * 60 * 60 * 24;
+        countdown = Math.ceil((saveDate.getTime() - today.getTime()) / (one_day));
+        var newOccasion = $("<li>");
+
+        if (countdown > 0) {
+            newOccasion.text(countdown + " days more to go for your " + occasion + "!");
+            $("#dates").append(newOccasion);
+        } else if (countdown == 0) {
+            newOccasion.text("It's your " + occasion);
+            $("#dates").append(newOccasion);
+        } else {
+            saveDate.setFullYear(saveDate.getFullYear() + 1);
             countdown = Math.ceil((saveDate.getTime() - today.getTime()) / (one_day));
-            var newOccasion = $("<li>");
-
-            if (countdown > 0) {
-                newOccasion.text(countdown + " days more to go for your " + occasionList[i].occasion + "!");
-                $("#dates").append(newOccasion);
-            } else if (countdown == 0) {
-                newOccasion.text("It's your " + occasionList[i].occasion);
-                $("#dates").append(newOccasion);
-            } else {
-                saveDate.setFullYear(saveDate.getFullYear() + 1);
-                countdown = Math.ceil((saveDate.getTime() - today.getTime()) / (one_day));
-                newOccasion.text(countdown + " days more to go for your " + occasionList[i].occasion + "!");
-                $("#dates").append(newOccasion);
-            }
+            newOccasion.text(countdown + " days more to go for your " + occasion + "!");
+            $("#dates").append(newOccasion);
         }
-    }
+
+    });
+
+
 
     // This section builds NYT query URL
     function buildQueryURL() {
@@ -335,7 +390,7 @@ $(document).ready(function () {
         }
     }
 
-    $("#signoutBtn").on("click",function(){
+    $("#signoutBtn").on("click", function () {
         //firebase.auth().signOut();
         sessionStorage.clear();
         window.location.replace("index.html");
@@ -358,11 +413,9 @@ $(document).ready(function () {
     }
 
 
+
     loadFacts();
     loadArticles();
-    getOccasions();
-    getFacts();
-    getTasks();
     loadWeather();
     loadDateAndTime();
 

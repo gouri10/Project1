@@ -187,7 +187,7 @@ function toggleSignIn() {
                 sessionStorage.setItem("email", email);
                 var emailmodified=email.replace("@", "atrateof");
                 var emailmodified1=emailmodified.replace(".", "dot");
-                sessionStorage.setItem("userEmail", emailmodified1);
+                sessionStorage.setItem("userAddedEmail", emailmodified1);
                 window.location.replace("dashboard.html");
             }
         }).catch(function (error) {
