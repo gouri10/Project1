@@ -3,13 +3,74 @@ body{
     color:antiquewhite;
     }
 
-#dashBoardheader{
+.dashBoardHeading{
     margin-top:0.5em;
     color:aquamarine;
     font-size:5em;
     z-index:10;
     text-align: center;
+    font-weight: bold;
 }
+
+#weather{
+      
+    overflow:hidden; 
+}
+
+#w{
+    overflow:hidden;
+}
+
+.animateparagraph {
+    height:3em;    
+    overflow: hidden;
+    position: relative;
+   }
+   .animateparagraph p {
+    font-size:3em;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    line-height: 50px;
+    text-align: center;
+    
+    color:pink;  
+    z-index:10;  
+    font-weight: bold;
+    border-radius:25px;width:70%;
+    /* Starting position */
+    -moz-transform:translateX(100%);
+    -webkit-transform:translateX(100%);	
+    transform:translateX(100%);
+    /* Apply animation to this element */	
+-moz-animation: animateparagraph 15s linear infinite;
+-webkit-animation: animateparagraph 15s linear infinite;
+animation: animateparagraph 15s linear infinite;
+}
+
+/* Move it (define the animation) */
+@-moz-keyframes animateparagraph {
+0%   { -moz-transform: translateX(100%); }
+100% { -moz-transform: translateX(-100%); }
+}
+@-webkit-keyframes animateparagraph {
+0%   { -webkit-transform: translateX(100%); }
+100% { -webkit-transform: translateX(-100%); }
+}
+@keyframes animateparagraph {
+0%   { 
+-moz-transform: translateX(100%); /* Firefox bug fix */
+-webkit-transform: translateX(100%); /* Firefox bug fix */
+transform: translateX(100%); 		
+}
+100% { 
+-moz-transform: translateX(-100%); /* Firefox bug fix */
+-webkit-transform: translateX(-100%); /* Firefox bug fix */
+transform: translateX(-100%); 
+}
+}
+
 
 #currentDate{
     font-size: 2em;
@@ -52,7 +113,7 @@ body{
     font-weight: bold;
     color:pink;
     padding: .1em;
-    margin-top: 80px;
+    /* margin-top: 80px; */
 }
 
 #currentWeather{
@@ -70,20 +131,104 @@ body{
 #chartContainer{
     width:100%;
     max-height:100%;
-    margin-top:0.5em;    
+    margin-top:0.5em; 
+    /* overflow:hidden; */
 }
 
-li{
-font-family: 'Advent Pro', sans-serif;
+input[type="checkbox"] {
+    vertical-align: middle;
 }
+
+.todoLabel{
+    display:flex;
+    color:limegreen;
+    font-family: 'Indie Flower', cursive;
+    font-size:1.5em;
+    width:fit-content;
+}
+
+
 
 #big-days{
    margin-top:1em;padding:1em;
    border-radius:25px;
    background-image:url('../images/specialOccasions.gif');
    background-size:cover;
+   background-repeat: no-repeat;
+   height:23em;
+   overflow:auto;
    color:white;
    font-weight:bold;
+
+}
+
+#dates li{
+    line-height:2em;
+    margin-top:0.4em;
+    font-size: 1.5em;
+    /* font-family: 'Turret Road', cursive; */
+    font-family: 'Seymour One', sans-serif;
+    font-weight: 1.5em;
+    color:maroon;
+    width: fit-content;
+    padding: 0em 1em;
+    border-radius: 25px;
+}
+
+/* .todo{
+   height:20em;
+    margin-top:1em;padding:1em;
+   border-radius:25px;
+   
+  
+   font-weight:bold;
+
+} */
+
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: block;
+  }
+
+.todo {
+    width: 100%;
+    border-radius:25px; 
+    
+}
+.backImage {
+    background-image:url('../images/todo.gif');
+    background-size:100%;
+    background-repeat: no-repeat;
+    position: relative;
+    /* height:auto; */
+    margin-top:1em;padding:1em;
+    border-radius:25px; 
+    font-weight:bold;
+    text-align:center;
+    overflow: auto;
+}
+
+.tasks{
+    text-align:left;
+    font-weight:bold;
+    color:pink;
+    text-decoration: underline;
+}
+.backImage:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.4);
+}
+.mainText {
+    color: yellow;
+    position: relative;
+    
 }
 
 #newsHeader{
@@ -126,10 +271,40 @@ h5 {
     color: black;
 }
 
-
-.btn-primary {
-    font-weight: bold;
+#addBigDayBtn, #addFactBtn{
+    margin-top:1em; 
+    background-color:lime;
+    border-radius: 100px; 
+    color:black;
 }
+
+#signoutBtn{
+    color:lime;
+    margin-right: 100px;
+    margin-top: 60px;
+    
+}
+
+#bd-heading{
+    text-align:center;
+    background-color: #FFFF00;
+    color:blue;
+    width:50%;
+    font-weight: bold;
+    border-radius:25px;
+    padding:0.1em 0;
+}
+/* #inputAddBigDay,#inputDay,#inputMonth{
+    background-color:lime;
+    border-radius: 25px; 
+    color:black;
+} */
+
+
+/* .btn-primary {
+    font-weight: bold;
+    border-radius:.5px;
+} */
 #submit {
     border-radius: 25px;
     border: .5px;

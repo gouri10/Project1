@@ -1,106 +1,80 @@
 <!DOCTYPE html>
 <html>
 
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Day Dashboard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- BootStrap Links -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <meta name="google-signin-client_id"
+    content="427851444370-94k8ik8sj5igii5ge4it9djfnl00gam3.apps.googleusercontent.com">
+  <meta name="google-signin-cookiepolicy" content="single_host_origin">
+  <meta name="google-signin-scope" content="profile email">
 
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css?family=Advent+Pro|Kaushan+Script|Satisfy|Shadows+Into+Light&display=swap"
-        rel="stylesheet">
+  <title>SignIn</title>
 
-    <!--custom stylesheet -->
-    <link rel="stylesheet" href="assets/css/style.css">
+  <!-- Google Sign In -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
 
-    <!-- Firebase References -->
-    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-database.js"></script>
+  <!-- BootStrap Links -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-    <!-- moment Reference -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <!-- Google Fonts -->
+  
+<!-- Font Awesome -->
 
-    <!-- JQUERY Reference -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!--custom stylesheet -->
+  <link rel="stylesheet" href="assets/css/logInPageStyles.css">
 
-    <!-- Canvasjs Reference -->
-    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+  <!-- Firebase References -->
+  <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+
+  <!-- JQUERY Reference -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </head>
 
 <body>
-
-    <div class="container">
-        
-        <!-- <div class="jumbotron text-center"> -->
-            <h1 class="display-1" id="dashBoardheader"><strong>Today's DashBoard</strong></h1>
-            <!-- <p>All about this day</p> -->
-            <!-- </div> -->
-
-            <div class="row">
-
-                <div class="col-lg-5 col-sm-12">
-                    <h1 id="currentDate"></h1>
-                    <h1 id="currentTime"></h1>
-                    
-                    <!-- Big Day's Countdown holder -->
-                    <div id="big-days">
-                        <h2 id="bd-heading">Your Big Days</h2>
-                        <ul id="dates"></ul>
-                    </div>
-                    <!-- Collect User Input -->
-                    <form id="userInput">
-                    </form>
-                    <!-- Input Filler and Clearer -->
-                    <div class="text-center">
-                    </div>
-
-                    <div id="facts">
-                        <h2 id="factsHeading">CoolFacts</h2>
-                        <ul id="coolfacts"></ul>
-                        <button class="btn-primary" style="margin:0 auto">Add Fact</button>
-                    </div>
-                </div>
-
-
-                <div class="col-lg-7 col-sm-12" id="weather">
-                    <h1 id="currentCity"></h1>
-                    <h2 id="currentWeather"></h2>
-                    <h3 id="currentDescription"></h3>
-                    <div class="float-right" style="margin-right:3em; ">
-                        <h5 id="currentWS"></h5>
-                        <h5 id="humidity"></h5>
-                    </div>
-                    <div id="chartContainer"></div>
-                </div>
-
-
-            </div>
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card" id="newsBody">
-                        <div class="card-header" id="newsHeader">Today's News</div>
-                        <!-- This main card will hold each of the resulting news articles -->
-                        <div class="card-body" id="article-section"></div>
-                    </div>
-
-
-                </div>
-            </div>
+  <div class="login-reg-panel">
+    <div class="login-info-box">
+      <h2>Have an account?</h2>
+      <label class="buttonlook" id="label-register" for="log-reg-show">Login</label>
+      <input type="radio" name="active-log-panel" id="log-reg-show" checked="checked">
     </div>
 
+    <div class="register-info-box">
+      <h2>Don't have an account?</h2>
+      <label class="buttonlook" id="label-login" for="log-login-show">Register</label>
+      <input type="radio" name="active-log-panel" id="log-login-show">
+    </div>
 
-    <!-- custom script -->
-    <script src="assets/javascript/logic.js"></script>
+    <div class="white-panel">
+      <div class="login-show">
+        <h2>LOGIN</h2>
+        <input id="loginEmail" type="text" placeholder="Email">
+        <input id="loginPswd" type="password" placeholder="Password">
+        <input id="login" type="button" value="Login">
+        <a href="">Forgot password?</a>
+        <div data-onsuccess="onSignIn" class="g-signin2"></div>
+      </div>     
+   
+    <div class="register-show">
+      <h2>REGISTER</h2>
+      <input id="registerUserName" type="text" placeholder="UserName">
+      <input id="registerEmail" type="text" placeholder="Email">
+      <input id="registerPswd" type="password" placeholder="Password">
+      <input id="register" type="button" value="Register">
+    </div>
+  </div>
+  </div>
+
+  <script src="assets/javascript/loginPageLogic.js"></script>
+
 </body>
-
 
 </html>
