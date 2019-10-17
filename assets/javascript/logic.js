@@ -1,88 +1,18 @@
 window.onload = function () {
 
-    // var apiKey = "73913b50cabd4950b081af4938f71ceb";
-    var apiKey = "b23f58cf877046d29a4ea9c055890aaf";
-    var query1 = "https://api.weatherbit.io/v2.0/forecast/hourly?city=Seattle,US&key=" + apiKey + "&hours=24";
-    var date = moment().format("YYYY-MM-DD");
-    var nextdate = moment().add(1, 'days').format("YYYY-MM-DD");
-
-    var query2 = "https://api.weatherbit.io/v2.0/history/hourly?city=Seattle,US&start_date=" + date + "&end_date=" + nextdate + "&tz=local&key=" + apiKey;
-
-    var options = {
-        backgroundColor: "transparent",
-
-        animationEnabled: true,
-        title: {
-            // text: "Weather Report Per Hour",
-        },
-        axisX: {
-            interval: 3,
-            intervalType: "hour",
-            valueFormatString: "hh",
-            labelFontColor: "yellow",
-            // gridThickness: 0,
-            // lineThickness: 0,
-            // tickLength: 0,
-            // labelFormatter: function () {
-            //     return " ";
-            // }
-        },
-        axisY: {
-            gridThickness: 0,
-            lineThickness: 0,
-            tickLength: 0,
-            labelFormatter: function () {
-                return " ";
-            }
-        },
-
-        data: [{
-            lineColor: "yellow",
-            type: "area",
-            color: "#F0E68C",
-            toolTipContent: "At {label} Hours: {y} Degrees Celsius",
-            dataPoints: [],
-
-        }]
-    };
-
-    $.ajax({
-        url: query2,
-        method: "GET"
-    })
-        .then(function (response) {
-            console.log(response);
-            var pasthours = moment().format("HH");
-            var futurehours = response.data.length - pasthours;
-            for (var i = 0; i <= pasthours; i++) {
-                options.data[0].dataPoints.push({ label: moment(response.data[i].timestamp_local).format("hh A"), y: response.data[i].temp });
-
-            }
-            $.ajax({
-                url: query1,
-                method: "GET"
-            })
-                .then(function (response1) {
-                    console.log(response1);
-                    for (var i = 0; i < futurehours - 1; i++) {
-                        options.data[0].dataPoints.push({ label: moment(response1.data[i].timestamp_local).format("hh A"), y: response1.data[i].temp });
-
-                    }
-
-                    $("#chartContainer").CanvasJSChart(options);
-
-                });
-        });
+    //initialize the application
+    this.initApp();
 }
 
-$(document).ready(function () {
+function initApp() {
 
+    //create global variables 
+    //that are used across the application
     var timeDisplayTimer;
     var currentDate;
     var currentTime;
 
-
-
+    //firebase configuration
     var firebaseConfig = {
         apiKey: "AIzaSyB0L_zmqWF5nPq7AjgyOuh6LvMMBPpltz8",
         authDomain: "daydashboard.firebaseapp.com",
@@ -92,10 +22,15 @@ $(document).ready(function () {
         messagingSenderId: "601335236816",
         appId: "1:601335236816:web:d14de5c8167c18efb676d5"
     };
+
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+
+    //createa firebase database local variable
     var database = firebase.database();
 
+    //load session values to appropraite variables
+    //like user name and email of the current user who logged in
     if (sessionStorage.length > 0) {
 
         var userName = sessionStorage.getItem("name");
@@ -107,45 +42,49 @@ $(document).ready(function () {
 
     }
 
+    //load months on month dropdown of bigday feature
     for (var i = 1; i < 13; i++) {
         $("#inputMonth").append("<option>" + i + "</option>");
     }
 
+    //load dates on date dropdown of bidday feature
     for (var i = 1; i < 32; i++) {
         $("#inputDay").append("<option>" + i + "</option>");
     }
 
-
-
-    //load Date and time
+    // Display current time feature
+    // load  User ,Date & time
     var loadDateAndTime = function () {
+
         if (sessionStorage.length > 0) {
-
-            userName = sessionStorage.getItem("name");
-            email = sessionStorage.getItem("email");
-            userAddedEmail = sessionStorage.getItem("userAddedEmail");
-            taskRef = firebase.database().ref("users/" + userAddedEmail + "/tasks/");
-
             $("#dashBoardheader").text("Hello " + userName);
         }
 
-
+        //fetch current date
         currentDate = moment().format("MMMM Do, YYYY");
         $("#currentDate").text(currentDate + " (" + moment().format("dddd") + ")");
 
+        //fetch current time
         currentTime = moment().format("LTS");
         $("#currentTime").text(currentTime);
 
+        //set the timer for updating time every second
         timeDisplayTimer = setInterval(updateTime, 1000);
 
     }
 
+    //call back function for timer to update time every second
     function updateTime() {
+
+        //get current time and load it to page
         currentTime = moment().format("LTS");
         $("#currentTime").text(currentTime);
 
     }
 
+
+    // Display current weather feature
+    // load  weather data and graph from weatherapi 
     var loadWeather = function () {
 
         var apiKey = "69cf46c3a095269894ea6a44c7369f49";
@@ -167,11 +106,79 @@ $(document).ready(function () {
 
     }
 
+    //weather graph for hourly weather update graph feature
+    function loadGraph() {
+        // var apiKey = "73913b50cabd4950b081af4938f71ceb";
+        var apiKey = "b23f58cf877046d29a4ea9c055890aaf";
+        var query1 = "https://api.weatherbit.io/v2.0/forecast/hourly?city=Seattle,US&key=" + apiKey + "&hours=24";
+        var date = moment().format("YYYY-MM-DD");
+        var nextdate = moment().add(1, 'days').format("YYYY-MM-DD");
 
+        var query2 = "https://api.weatherbit.io/v2.0/history/hourly?city=Seattle,US&start_date=" + date + "&end_date=" + nextdate + "&tz=local&key=" + apiKey;
+
+        var options = {
+            backgroundColor: "transparent",
+            animationEnabled: true,
+            axisX: {
+                interval: 3,
+                intervalType: "hour",
+                valueFormatString: "hh",
+                labelFontColor: "yellow",
+            },
+            axisY: {
+                gridThickness: 0,
+                lineThickness: 0,
+                tickLength: 0,
+                labelFormatter: function () {
+                    return " ";
+                }
+            },
+
+            data: [{
+                lineColor: "yellow",
+                type: "area",
+                color: "#F0E68C",
+                toolTipContent: "At {label} Hours: {y} Degrees Celsius",
+                dataPoints: [],
+
+            }]
+        };
+
+        $.ajax({
+            url: query2,
+            method: "GET"
+        })
+            .then(function (response) {
+                console.log(response);
+                var pasthours = moment().format("HH");
+                var futurehours = response.data.length - pasthours;
+                for (var i = 0; i <= pasthours; i++) {
+                    options.data[0].dataPoints.push({ label: moment(response.data[i].timestamp_local).format("hh A"), y: response.data[i].temp });
+
+                }
+                $.ajax({
+                    url: query1,
+                    method: "GET"
+                })
+                    .then(function (response1) {
+                        console.log(response1);
+                        for (var i = 0; i < futurehours - 1; i++) {
+                            options.data[0].dataPoints.push({ label: moment(response1.data[i].timestamp_local).format("hh A"), y: response1.data[i].temp });
+
+                        }
+
+                        $("#chartContainer").CanvasJSChart(options);
+
+                    });
+            });
+    }
+
+    //Display cool facts feature
+    //load facts from numbersapi 
     var loadFacts = function () {
 
         var dateToday = moment().format("MM/DD");
-        var queryURL = "https://numbersapi.com/" + dateToday + "/date";
+        var queryURL = "http://numbersapi.com/" + dateToday + "/date";
         for (var i = 0; i <= 3; i++) {
             // Creates AJAX call for the specific movie button being clicked
             $.ajax({
@@ -189,6 +196,7 @@ $(document).ready(function () {
         }
     }
 
+    //add tasks,facts,bigdays to firebase
     function fireBaseUserDataUpdate(type, obj) {
         var userDataRef = firebase.database().ref("users/" + userAddedEmail + "/" + type + "/");
         if (type === "tasks") {
@@ -215,9 +223,10 @@ $(document).ready(function () {
     };
 
 
+    // Add Task Feature
     $("#addTask").on("click", function (event) {
         event.preventDefault();
-        var task=$("#task").val();
+        var task = $("#task").val();
         var checked = $("input[name='taskType']:checked").val();
         var isdailyInput = false;
         if (checked === "daily") {
@@ -226,15 +235,14 @@ $(document).ready(function () {
         else {
             isdailyInput = false;
         }
-        if(task!=="")
-        {
-        var taskObj = { task: task, isDaily: isdailyInput };
-        fireBaseUserDataUpdate("tasks", taskObj)
-        $("#task").val("");
+        if (task !== "") {
+            var taskObj = { task: task, isDaily: isdailyInput };
+            fireBaseUserDataUpdate("tasks", taskObj)
+            $("#task").val("");
         }
     })
 
-
+    //Display Tasks 
     tasksRef.on("child_added", function (snapshot) {
         var sv = snapshot.val();
         var task = sv.task;
@@ -255,6 +263,7 @@ $(document).ready(function () {
     });
 
 
+    // Add Fact Feature
     $("#addFactBtn").on("click", function (event) {
         event.preventDefault();
         var userFact = $("#inputAddFact").val();
@@ -268,6 +277,7 @@ $(document).ready(function () {
 
     })
 
+    //Display Facts added by user
     factsRef.on("child_added", function (snapshot) {
         var sv = snapshot.val();
         console.log(sv);
@@ -281,7 +291,7 @@ $(document).ready(function () {
     });
 
 
-
+    //Add Big Day Feature
     $("#addBigDayBtn").on("click", function (event) {
         event.preventDefault();
         var occasion = $("#inputAddBigDay").val();
@@ -296,6 +306,7 @@ $(document).ready(function () {
 
     })
 
+    //Display BigDays
     bigDaysRef.on("child_added", function (snapshot) {
         var sv = snapshot.val();
         var occasion = sv.occasion;
@@ -324,7 +335,7 @@ $(document).ready(function () {
     });
 
 
-
+    // Today's News Feature
     // This section builds NYT query URL
     function buildQueryURL() {
         var currentDate = moment().format("YYYY-MM-D");
@@ -390,12 +401,6 @@ $(document).ready(function () {
         }
     }
 
-    $("#signoutBtn").on("click", function () {
-        //firebase.auth().signOut();
-        sessionStorage.clear();
-        window.location.replace("index.html");
-    });
-
     // clears out article section
     function clear() {
         $("#article-section").empty();
@@ -411,12 +416,25 @@ $(document).ready(function () {
             method: "GET"
         }).then(updatePage);
     }
+    //end of Today's News Feature
 
+    //signout Feature
+    $("#signoutBtn").on("click", function () {
+        //firebase.auth().signOut();
+        sessionStorage.clear();
+        window.location.replace("index.html");
+    });
+    //end of signout Feature
 
-
+    //load weather graph
+    loadGraph();
+    //load facts
     loadFacts();
+    //load news articles
     loadArticles();
+    //load weather
     loadWeather();
+    //loadDate and time
     loadDateAndTime();
 
-});
+}
