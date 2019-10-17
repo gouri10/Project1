@@ -130,7 +130,7 @@ $(document).ready(function () {
     var loadFacts = function () {
         
         var dateToday = moment().format("MM/DD");
-        var queryURL = "http://numbersapi.com/" + dateToday + "/date";
+        var queryURL = "https://numbersapi.com/" + dateToday + "/date";
 
         for (var i = 0; i <= 3; i++) {
             // Creates AJAX call for the specific movie button being clicked

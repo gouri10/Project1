@@ -32,7 +32,7 @@
   <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-database.js"></script>
 
   <!-- JQUERY Reference -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -61,6 +61,7 @@
         <input id="login" type="button" value="Login">
         <a href="">Forgot password?</a>
         <div data-onsuccess="onSignIn" class="g-signin2"></div>
+        <p id="loginInfoMsg"></p>
       </div>     
    
     <div class="register-show">
@@ -69,6 +70,7 @@
       <input id="registerEmail" type="text" placeholder="Email">
       <input id="registerPswd" type="password" placeholder="Password">
       <input id="register" type="button" value="Register">
+      <p id="registerInfoMsg"></p>
     </div>
   </div>
   </div>
