@@ -179,6 +179,13 @@ function initApp() {
 
         var dateToday = moment().format("MM/DD");
         var queryURL = "http://numbersapi.com/" + dateToday + "/date";
+        var facts = [
+            "October 17th is the day in 1945 that a massive number of people, headed by CGT and Evita, gather in the Plaza de Mayo in Argentina to demand Juan Peron's release.",
+            "October 17th is the day in 539 BC that Cyrus the Great marches into the city of Babylon, releasing the Jews from almost 70 years of exile.",
+            "October 17th is the day in 2000 that Train crash at Hatfield, north of London, leading to collapse of Railtrack.",
+            "October 17th is the day in 1860 that First The Open Championship (referred to in North America as the British Open)."
+        ]
+        var factsLoaded=false;
         for (var i = 0; i <= 3; i++) {
             // Creates AJAX call for the specific movie button being clicked
             $.ajax({
@@ -186,6 +193,7 @@ function initApp() {
                 method: "GET"
             }).then(function (response) {
                 $("#coolfacts").append($("<li>").text(response));
+                factsLoaded=true;
                 //    var factsunique=facts;
                 //    factsunique.push(response);
                 //    facts = factsunique.filter(
@@ -193,6 +201,13 @@ function initApp() {
                 //             {}
                 //            );                   
             });
+            
+            if(!factsLoaded){
+                $("#coolfacts").append($("<li>").text(facts[i]));                
+            }
+            else{
+            factsLoaded=false;
+            }
         }
     }
 
